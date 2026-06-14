@@ -9,14 +9,21 @@ from src.display import display_etf
 def main():
     """Hauptfunktion die alles zusammenbringt."""
     if len(sys.argv) < 2:
-        print("Verwendung: python main.py <ticker>")
-        print("Beispiel:   python main.py SXR8.DE")
+        print("Verwendung: python main.py <ticker1> <ticker2> ...")
+        print("Beispiel:   python main.py SXR8.DE IS3N.DE")
         return
-    query = sys.argv[1]
-    print(f"Suche nach: {query}...")
-    etf = search_etf(query)
-    if etf:
-        display_etf(etf)
+
+    queries = sys.argv[1:]
+    results = []
+
+    for query in queries:
+        print(f"Suche nach: {query}...")
+        etf = search_etf(query)
+        if etf:
+            results.append(etf)
+
+    if results:
+        display_etf(results)
 
 if __name__ == "__main__":
     main()
